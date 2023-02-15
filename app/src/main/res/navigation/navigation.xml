@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/remoteJobFragment">
+
+    <fragment
+        android:id="@+id/jobDetailsView"
+        android:name="com.techsultan.jobber.fragments.JobDetailsViewFragment"
+        android:label="fragment_job_details_view"
+        tools:layout="@layout/fragment_job_details_view" >
+        <action
+            android:id="@+id/action_jobDetailsView_to_remoteJobFragment"
+            app:destination="@id/remoteJobFragment" />
+        <argument
+            android:name="job"
+            app:argType="com.techsultan.jobber.models.Job"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/remoteJobFragment"
+        android:name="com.techsultan.jobber.fragments.RemoteJobFragment"
+        android:label="fragment_remote_job"
+        tools:layout="@layout/fragment_remote_job" >
+        <action
+            android:id="@+id/action_remoteJobFragment_to_jobDetailsView"
+            app:destination="@id/jobDetailsView" />
+    </fragment>
+</navigation>
