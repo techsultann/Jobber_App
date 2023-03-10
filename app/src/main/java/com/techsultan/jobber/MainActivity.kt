@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.techsultan.jobber.databinding.ActivityMainBinding
+import com.techsultan.jobber.db.JobDatabase
 import com.techsultan.jobber.repository.RemoteJobRepository
 import com.techsultan.jobber.viewmodels.RemoteJobViewModel
 import com.techsultan.jobber.viewmodels.RemoteJobViewModelFactory
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val remoteJobRepository = RemoteJobRepository()
+        val remoteJobRepository = RemoteJobRepository(JobDatabase.getDatabase(this))
         val viewModelProviderFactory = RemoteJobViewModelFactory(application, remoteJobRepository)
         viewModel = ViewModelProvider(this, viewModelProviderFactory)[RemoteJobViewModel::class.java]
 

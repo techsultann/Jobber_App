@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class RemoteJobResponse(
     @SerializedName("job-count")
-    val jobCount: Int?,
+    val jobCount: Job,
     @SerializedName("jobs")
     val jobs: List<Job?>?,
     @SerializedName("0-legal-notice")

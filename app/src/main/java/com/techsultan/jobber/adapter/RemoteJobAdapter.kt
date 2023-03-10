@@ -14,8 +14,6 @@ import com.techsultan.jobber.models.Job
 class RemoteJobAdapter : RecyclerView.Adapter<RemoteJobAdapter.RemoteJobViewHolder>() {
 
 
-
-
     inner class RemoteJobViewHolder(val binding: JobLayoutAdapterBinding) : RecyclerView.ViewHolder(binding.root)
 
     private val differCallback = object : DiffUtil.ItemCallback<Job>() {

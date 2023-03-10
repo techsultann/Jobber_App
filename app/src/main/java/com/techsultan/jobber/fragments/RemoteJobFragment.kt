@@ -53,9 +53,10 @@ class RemoteJobFragment : Fragment() {
 
             adapter = remoteJobAdapter
 
+            fetchingData()
+
         }
 
-        fetchingData()
 
     }
 
