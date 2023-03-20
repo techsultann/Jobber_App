@@ -21,10 +21,20 @@
     <fragment
         android:id="@+id/remoteJobFragment"
         android:name="com.techsultan.jobber.fragments.RemoteJobFragment"
-        android:label="fragment_remote_job"
-        tools:layout="@layout/fragment_remote_job" >
+        android:label="Remote Jobs"
+        tools:layout="@layout/fragment_remote_job">
         <action
             android:id="@+id/action_remoteJobFragment_to_jobDetailsView"
             app:destination="@id/jobDetailsView" />
     </fragment>
+    <fragment
+        android:id="@+id/savedJobFragment"
+        android:name="com.techsultan.jobber.fragments.SavedJobFragment"
+        android:label="Saved Jobs"
+        tools:layout="@layout/fragment_saved_job" />
+    <fragment
+        android:id="@+id/searchJobFragment"
+        android:name="com.techsultan.jobber.fragments.SearchJobFragment"
+        android:label="Search jobs"
+        tools:layout="@layout/fragment_search_job" />
 </navigation>

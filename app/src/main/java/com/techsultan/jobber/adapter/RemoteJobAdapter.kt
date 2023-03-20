@@ -10,11 +10,13 @@ import com.bumptech.glide.Glide
 import com.techsultan.jobber.databinding.JobLayoutAdapterBinding
 import com.techsultan.jobber.fragments.RemoteJobFragmentDirections
 import com.techsultan.jobber.models.Job
+import com.techsultan.jobber.models.RemoteJobResponse
 
 class RemoteJobAdapter : RecyclerView.Adapter<RemoteJobAdapter.RemoteJobViewHolder>() {
 
 
-    inner class RemoteJobViewHolder(val binding: JobLayoutAdapterBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class RemoteJobViewHolder(val binding: JobLayoutAdapterBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     private val differCallback = object : DiffUtil.ItemCallback<Job>() {
         override fun areItemsTheSame(oldItem: Job, newItem: Job): Boolean {

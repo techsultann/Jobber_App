@@ -1,25 +1,38 @@
 package com.techsultan.jobber.fragments
 
+import android.nfc.Tag
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.techsultan.jobber.MainActivity
 import com.techsultan.jobber.adapter.RemoteJobAdapter
 import com.techsultan.jobber.databinding.FragmentRemoteJobBinding
+import com.techsultan.jobber.models.Job
+import com.techsultan.jobber.utils.Resource
+import com.techsultan.jobber.viewmodels.RemoteJobApplication
 import com.techsultan.jobber.viewmodels.RemoteJobViewModel
+import com.techsultan.jobber.viewmodels.RemoteJobViewModelFactory
 
 
 class RemoteJobFragment : Fragment() {
-
     private var _binding: FragmentRemoteJobBinding? = null
     private val binding get() = _binding!!
+
+    private val remoteJobViewModel: RemoteJobViewModel by viewModels {
+        val application = activity?.applicationContext
+        RemoteJobViewModelFactory((application as RemoteJobApplication).repository)
+    }
     private lateinit var remoteJobAdapter: RemoteJobAdapter
-    private lateinit var viewModel: RemoteJobViewModel
+
+    val TAG = "An error occured"
+
 
 
     override fun onCreateView(
@@ -35,9 +48,25 @@ class RemoteJobFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = (activity as MainActivity).viewModel
 
         setupRecyclerView()
+
+
+        remoteJobViewModel.remoteJob.observe(viewLifecycleOwner, Observer { response ->
+            when(response) {
+                is Resource.Success -> {
+                    response.data?.let { _ ->
+                        remoteJobAdapter.differ.submitList(response.data.jobs)
+                    }
+                }
+
+                else -> {
+                    response.message?.let { message ->
+                        Log.e(TAG, "An error occurred: $message")
+                    }
+                }
+            }
+        })
 
 
     }
@@ -53,25 +82,12 @@ class RemoteJobFragment : Fragment() {
 
             adapter = remoteJobAdapter
 
-            fetchingData()
-
         }
 
 
     }
 
-    private fun fetchingData() {
 
-        viewModel.remoteJobResult().observe(viewLifecycleOwner) { remoteJob ->
-
-            if (remoteJob != null) {
-
-                remoteJobAdapter.differ.submitList(remoteJob.jobs)
-            }
-
-        }
-
-    }
 
 
     override fun onDestroy() {

@@ -1,19 +1,43 @@
 package com.techsultan.jobber.viewmodels
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.techsultan.jobber.models.FavoriteJob
+import com.techsultan.jobber.models.Job
+import com.techsultan.jobber.models.RemoteJobResponse
 import com.techsultan.jobber.repository.RemoteJobRepository
+import com.techsultan.jobber.utils.Resource
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class RemoteJobViewModel(
-    app: Application,
     private val repository: RemoteJobRepository
-): AndroidViewModel(app) {
+): ViewModel() {
+
+    val remoteJob: MutableLiveData<Resource<RemoteJobResponse>> = MutableLiveData()
+
+    init {
+        getRemoteJob()
+    }
 
 
-    fun remoteJobResult() = repository.remoteJobResult()
+    private fun getRemoteJob() = viewModelScope.launch {
+        remoteJob.postValue(Resource.Loading())
+        val response = repository.remoteJobResult()
+        remoteJob.postValue(handleRemoteJobResponse(response))
+    }
+
+    private fun handleRemoteJobResponse(response: Response<RemoteJobResponse>) : Resource<RemoteJobResponse> {
+
+        if (response.isSuccessful) {
+            response.body().let { jobResponse ->
+                return Resource.Success(jobResponse)
+            }
+        }
+
+        return Resource.Error(response.message())
+    }
 
     fun addFavJobs(job: FavoriteJob) = viewModelScope.launch {
 

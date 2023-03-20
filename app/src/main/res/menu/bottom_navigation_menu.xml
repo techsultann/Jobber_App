@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:id="@+id/remoteJobFragment"
+        android:title="JOBS"
+        />
+
+    <item android:id="@+id/searchJobFragment"
+        android:title="SEARCH"
+        />
+
+    <item android:id="@+id/savedJobFragment"
+        android:title="SAVED JOBS"
+        />
+
+</menu>
