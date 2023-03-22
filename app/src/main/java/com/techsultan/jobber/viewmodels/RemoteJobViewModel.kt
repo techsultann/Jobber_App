@@ -48,5 +48,5 @@ class RemoteJobViewModel(
         repository.deleteJob(job)
     }
 
-    fun getAllFavJobs() = repository.getAllJobs()
+    fun getAllFavJobs() = repository.getAllJobs().getAllJob()
 }

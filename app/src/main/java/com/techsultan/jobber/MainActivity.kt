@@ -16,7 +16,6 @@ import com.techsultan.jobber.viewmodels.RemoteJobViewModelFactory
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    lateinit var viewModel: RemoteJobViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
