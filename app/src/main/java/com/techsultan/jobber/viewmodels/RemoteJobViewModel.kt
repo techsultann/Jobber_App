@@ -17,6 +17,7 @@ class RemoteJobViewModel(
 
     val remoteJob: MutableLiveData<Resource<RemoteJobResponse>> = MutableLiveData()
 
+
     init {
         getRemoteJob()
     }
@@ -35,9 +36,12 @@ class RemoteJobViewModel(
                 return Resource.Success(jobResponse)
             }
         }
-
         return Resource.Error(response.message())
     }
+
+    fun searchRemoteJob(query: String) = repository.searchRemoteJob(query)
+    fun searchResult() = repository.searchJobResult()
+
 
     fun addFavJobs(job: FavoriteJob) = viewModelScope.launch {
 
