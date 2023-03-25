@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.techsultan.jobber.R
 import com.techsultan.jobber.adapter.RemoteJobAdapter
 import com.techsultan.jobber.databinding.FragmentSearchJobBinding
-import com.techsultan.jobber.models.Job
 import com.techsultan.jobber.viewmodels.RemoteJobApplication
 import com.techsultan.jobber.viewmodels.RemoteJobViewModel
 import com.techsultan.jobber.viewmodels.RemoteJobViewModelFactory
@@ -48,6 +48,14 @@ class SearchJobFragment : Fragment() {
 
         searchJob()
         setupRecyclerView()
+
+        remoteJobAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("job", it)
+            }
+
+            findNavController().navigate(R.id.action_searchJobFragment_to_jobDetailsView, bundle)
+        }
     }
 
 
@@ -79,8 +87,8 @@ class SearchJobFragment : Fragment() {
 
             adapter = remoteJobAdapter
 
-            remoteJobViewModel.searchResult().observe(viewLifecycleOwner) { remoteJob ->
-                remoteJobAdapter.differ.submitList(remoteJob?.jobs)
+            remoteJobViewModel.searchResult().observe(viewLifecycleOwner) { searchJob ->
+                remoteJobAdapter.differ.submitList(searchJob?.jobs)
             }
 
         }

@@ -4,6 +4,7 @@ package com.techsultan.jobber.models
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
+import java.io.Serializable
 
 
 @Parcelize
@@ -28,4 +29,4 @@ data class Job(
     val title: String?,
     @SerializedName("url")
     val url: String?
-) : Parcelable
+) : Parcelable, Serializable

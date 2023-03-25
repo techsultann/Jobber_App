@@ -1,5 +1,6 @@
 package com.techsultan.jobber.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -74,6 +75,7 @@ class JobDetailsViewFragment : Fragment() {
         Snackbar.make(view, "Saved successfully", Snackbar.LENGTH_SHORT).show()
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private fun setupWebView() {
 
         binding.webView.apply {
@@ -82,6 +84,9 @@ class JobDetailsViewFragment : Fragment() {
             currentJob.url?.let { loadUrl(it) }
 
         }
+
+        val settings = binding.webView.settings
+        settings.javaScriptEnabled = true
 
     }
 

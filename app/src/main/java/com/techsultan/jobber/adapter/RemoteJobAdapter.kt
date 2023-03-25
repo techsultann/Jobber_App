@@ -58,14 +58,20 @@ class RemoteJobAdapter : RecyclerView.Adapter<RemoteJobAdapter.RemoteJobViewHold
             tvLocation.text = job.candidateRequiredLocation
             tvDate.text = job.publicationDate
 
-            holder.itemView.setOnClickListener { view ->
+            holder.itemView.setOnClickListener {
 
-                val direction = RemoteJobFragmentDirections
-                    .actionRemoteJobFragmentToJobDetailsView(job)
-                view.findNavController().navigate(direction)
+                onItemClickListener?.let {
+                    it(job)
+                }
 
             }
 
         }
+    }
+
+    private  var onItemClickListener:((Job) -> Unit)? = null
+
+    fun setOnItemClickListener(listener : (Job) -> Unit) {
+        onItemClickListener = listener
     }
 }

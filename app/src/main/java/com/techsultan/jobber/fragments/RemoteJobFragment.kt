@@ -8,10 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.techsultan.jobber.R
 import com.techsultan.jobber.adapter.RemoteJobAdapter
 import com.techsultan.jobber.databinding.FragmentRemoteJobBinding
 import com.techsultan.jobber.models.Job
@@ -50,6 +53,14 @@ class RemoteJobFragment : Fragment() {
 
 
         setupRecyclerView()
+
+        remoteJobAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("job", it)
+
+            }
+            findNavController().navigate(R.id.action_remoteJobFragment_to_jobDetailsView, bundle)
+        }
 
 
         remoteJobViewModel.remoteJob.observe(viewLifecycleOwner, Observer { response ->
