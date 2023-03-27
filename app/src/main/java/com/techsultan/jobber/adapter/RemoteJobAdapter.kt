@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.techsultan.jobber.databinding.JobLayoutAdapterBinding
-import com.techsultan.jobber.fragments.RemoteJobFragmentDirections
 import com.techsultan.jobber.models.Job
 import com.techsultan.jobber.models.RemoteJobResponse
 

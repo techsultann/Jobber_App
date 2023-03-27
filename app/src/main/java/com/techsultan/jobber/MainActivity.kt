@@ -23,34 +23,35 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.title = ""
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.remoteJobNavHostFragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-        // Passing the applications top level destinations and the drawer layout
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.remoteJobFragment, R.id.searchJobFragment, R.id.savedJobFragment))
+        // Setting up collapsing toolbar
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        binding.collapsingToolbarLayout.setupWithNavController(binding.toolbar, navController, appBarConfiguration)
 
 
 
-        setupAppBar(navController, appBarConfiguration)
-        setupBottomNavMenu(navController)
+        //setupAppBar(navController, appBarConfiguration)
+        //setupBottomNavMenu(navController)
     }
 
 
 
 
 
-    private fun setupAppBar(navController: NavController, appBarConfiguration: AppBarConfiguration) {
+    /*private fun setupAppBar(navController: NavController, appBarConfiguration: AppBarConfiguration) {
         val topAppBar = binding.toolbar
         topAppBar.setupWithNavController(navController, appBarConfiguration)
-    }
+    }*/
 
-    private fun setupBottomNavMenu(navController: NavController) {
+    /*private fun setupBottomNavMenu(navController: NavController) {
 
         val bottomNav = binding.bottomNavView
         bottomNav.setupWithNavController(navController)
-    }
+    }*/
 
 
 }

@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.techsultan.jobber.databinding.JobLayoutAdapterBinding
-import com.techsultan.jobber.fragments.RemoteJobFragmentDirections
-import com.techsultan.jobber.fragments.SavedJobFragmentDirections
 import com.techsultan.jobber.models.FavoriteJob
 import com.techsultan.jobber.models.Job
 
@@ -80,10 +78,6 @@ class SavedJobAdapter : RecyclerView.Adapter<SavedJobAdapter.RemoteJobViewHolder
 
 
                 )
-
-                val direction = SavedJobFragmentDirections
-                    .actionSavedJobFragmentToJobDetailsView(currentJob)
-                view.findNavController().navigate(direction)
 
             }
 

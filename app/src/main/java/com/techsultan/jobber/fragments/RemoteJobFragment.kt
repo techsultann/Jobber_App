@@ -59,7 +59,7 @@ class RemoteJobFragment : Fragment() {
                 putSerializable("job", it)
 
             }
-            findNavController().navigate(R.id.action_remoteJobFragment_to_jobDetailsView, bundle)
+            findNavController().navigate(R.id.action_viewPagerFragment_to_jobDetailsView, bundle)
         }
 
 
