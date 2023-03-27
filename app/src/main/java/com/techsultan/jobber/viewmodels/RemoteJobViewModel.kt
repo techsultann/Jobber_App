@@ -39,6 +39,15 @@ class RemoteJobViewModel(
         return Resource.Error(response.message())
     }
 
+
+
+
+
+
+
+
+
+
     fun searchRemoteJob(query: String) = repository.searchRemoteJob(query)
     fun searchResult() = repository.searchJobResult()
 

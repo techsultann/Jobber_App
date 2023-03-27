@@ -1,11 +1,14 @@
 package com.techsultan.jobber.fragments
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -14,12 +17,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.techsultan.jobber.R
 import com.techsultan.jobber.adapter.RemoteJobAdapter
 import com.techsultan.jobber.databinding.FragmentSearchJobBinding
+import com.techsultan.jobber.utils.Constants
+import com.techsultan.jobber.utils.Resource
 import com.techsultan.jobber.viewmodels.RemoteJobApplication
 import com.techsultan.jobber.viewmodels.RemoteJobViewModel
 import com.techsultan.jobber.viewmodels.RemoteJobViewModelFactory
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import okio.IOException
 
 
 class SearchJobFragment : Fragment() {
@@ -43,11 +49,28 @@ class SearchJobFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        searchJob()
-        setupRecyclerView()
+        try {
+            if (Constants.isInternetConnected(requireContext())){
+            searchJob()
+            setupRecyclerView()
+        } else {
+            remoteJobViewModel.remoteJob.postValue(Resource.Error("No internet connection"))
+        }
+
+        } catch (t: Throwable) {
+            when(t) {
+                is IOException -> remoteJobViewModel.remoteJob.postValue(Resource.Error("Network Failure"))
+                else -> remoteJobViewModel.remoteJob.postValue(Resource.Error("Conversion Error"))
+            }
+
+
+
+        }
+
 
         remoteJobAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
